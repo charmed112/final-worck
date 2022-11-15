@@ -1,52 +1,62 @@
-﻿int n = 4;
-int size = 10;
+﻿int n = 3;
+int size  = 6;
 string[] arrayOne = new string[size];
-FillRandArr(arrayOne);
-if (GetSizeOfSecondArray(arrayOne) == 0){Console.WriteLine("искомых элементов строкового масива для переноса в новый массив - нет");}
+Console.WriteLine("Введите 6 раз значение для массива");
+FillArray(arrayOne);
+Console.Clear();
+PrintArray(arrayOne);
+Console.WriteLine("новый массив->");
+if (Secondarray(arrayOne) == 0)
+    {
+        Console.WriteLine("Искомых элементов  строкового массива для переноса в новый массив - нет");
+    }
 else
-{   
-    Console.Clear();
-    Console.WriteLine($"Перед вами стр  оковый массив, заполненный рандомными занчениями, и новый массив, впитавщий в себя элементы предудещего массива, длина которых равна трём или менее символов:");
-    Console.WriteLine();
-    string[] arrayTwo = RotateElemOfArr(arrayOne);
-    Console.WriteLine($"[{String.Join(", ", arrayOne)}] -> [{String.Join(", ", arrayTwo)}]");
-    Console.WriteLine();
-}
-void FillRandArr(string[] arr)
 {
-    Random rand = new Random();
-    string AllSymbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    string[] arrayTwo = TransferElements(arrayOne);
+    PrintArray(arrayTwo);
+}
+void FillArray(string[]arr)
+{  
     for (int i = 0; i < size; i++)
     {
-        int randElemSize = rand.Next(1,8);
-        for (int j = 0; j < randElemSize; j++)
-        {
-            arr[i] += AllSymbols[rand.Next(0,AllSymbols.Length)];
-        }        
+        arr[i] = Console.ReadLine();
     }
 }
-int GetSizeOfSecondArray(string[] arr)
-{   
+
+void PrintArray(string[] arr)
+{
+    int arrLeng = arr.Length;
+    Console.Write("[ ");
+    for (int i = 0; i < arrLeng; i++)
+    {
+    Console.Write(arr[i] + " ");
+    }
+    Console.Write("] ");
+}
+
+int Secondarray(string[] arr)
+{
     int secondSize = 0;
     for (int i = 0; i < size; i++)
     {
-        if(arr[i].Length < n)
+        if(arr[i].Length <= n)
         {
-            secondSize++;
+        secondSize++;
         }
-    }
-    return secondSize;
+    }  
+    return secondSize; 
 }
-string[] RotateElemOfArr(string[] arr)
+
+string[] TransferElements(string[] arr)
 {
-    string[] arrayTwo = new string[GetSizeOfSecondArray(arrayOne)];
+    string[] arrayTwo = new string[Secondarray(arrayOne)];
     for (int i = 0, j = 0; i < size; i++)
     {
-        if(arr[i].Length < n)
-        {
-            arrayTwo[j] = arr[i];
-            j++;
-        }
+     if(arr[i].Length <= n)
+     {
+        arrayTwo[j] = arr[i];
+        j++;
+     }
     }
     return arrayTwo;
 }
